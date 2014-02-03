@@ -1,0 +1,53 @@
+﻿@model MvcApplication2.Models.FirstQueryModel
+@{
+    ViewBag.Title = "First Query";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div id="instructions">
+    <strong>Write a query that retrieves the total amount of paid commission for a specific dealer over a custom time period.</strong>
+</div>
+
+<br /><br />
+
+<h2>@ViewBag.Title</h2>
+
+<br /><br />
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary("Please correct the errors")
+
+    <fieldset>
+        <legend>First Query Form</legend>
+        <ol>
+            <li>
+                @Html.LabelFor(m => m.DealerId)
+                @Html.TextBoxFor(m => m.DealerId)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.StartPeriodeDate)
+                @Html.TextBoxFor(m => m.StartPeriodeDate)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.EndPeriodeDate)
+                @Html.TextBoxFor(m => m.EndPeriodeDate)
+            </li>
+        </ol>
+        <input type="submit" value="Enter" />
+    </fieldset>
+}
+
+@if (ViewBag.TotalAmount != "" && ViewBag.TotalAmount != "-1") 
+{
+    //TODO: valid message in green.
+    <div>Total amount of paid commission for selected dealer over the selected time period:
+    @ViewBag.TotalAmount commission(s).</div> 
+}
+else if (ViewBag.TotalAmount == "-1")
+{
+    //TODO: error message in red.
+    <div>Please select a valid Dealer Id, Start date and End Date.</div>
+}
+

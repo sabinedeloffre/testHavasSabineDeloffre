@@ -1,0 +1,68 @@
+﻿@model MvcApplication2.Models.CommissionFilterModel
+
+@{
+    ViewBag.Title = "Commissions";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div id="instructions">
+    <strong>You can filter the commissions by specific range date and current status.</strong>
+</div>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary("Please correct the errors")
+
+    <fieldset>
+        <legend>First Query Form</legend>
+        <ol>
+            <li>
+                @Html.LabelFor(m => m.PaymentStatusId)
+                @Html.TextBoxFor(m => m.PaymentStatusId)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.StartPeriodeDate)
+                @Html.TextBoxFor(m => m.StartPeriodeDate)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.EndPeriodeDate)
+                @Html.TextBoxFor(m => m.EndPeriodeDate)
+            </li>
+        </ol>
+        <input type="submit" value="Filter" />
+    </fieldset>
+}
+
+@if (@ViewBag.CommissionList != null)
+{
+    <table>
+        <thead>
+            <tr>
+                <td>Id</td>
+                <td>Amount</td>
+                <td>Date created</td>
+                <td>Customer Id</td>
+                <td>Dealer Id</td>
+                <td>Payment Status Id</td>
+                <td>Product Id</td>
+            </tr>
+        </thead>
+        @foreach (var i in @ViewBag.CommissionList)
+        {
+             <tr>
+                 <td>@i.CommissionId </td>
+                 <td>@i.CommissionAmount</td>
+                 <td>@i.CreatedDate</td>
+                 <td>@i.CustomerId</td>
+                 <td>@i.DealerId</td>
+                 <td>@i.PaymentStatusId</td>
+                 <td>@i.ProductId</td>
+             </tr>
+        }
+    </table>
+}
+else
+{
+    <div>No result have been returned.</div>
+}

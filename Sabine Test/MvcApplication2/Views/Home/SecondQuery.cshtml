@@ -1,0 +1,41 @@
+﻿@model MvcApplication2.Models.SecondQueryModel
+@{
+    ViewBag.Title = "Second Query";
+}
+
+<h2>@ViewBag.Title</h2>
+
+
+<div id="instructions">
+    <strong>Write a query to calculate the average period (in days) all commissions have taken to transition from ‘Verified’ to ‘Paid’ for a single dealer.</strong>   
+</div>
+
+<br /><br />
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+
+    <fieldset>
+        <legend>Second Query Form</legend>
+        <ol>
+            <li>
+                @Html.LabelFor(m => m.DealerId)
+                @Html.TextBoxFor(m => m.DealerId)
+            </li>
+        </ol>
+        <input type="submit" value="Enter" />
+    </fieldset>
+}
+
+@if(ViewBag.Average != "" && ViewBag.Average != "-1") 
+{
+    //TODO: valid message in green.
+    <div>Average period (in days) all commissions have taken to transition from ‘Verified’ to ‘Paid’ for selected dealer:
+    @ViewBag.Average days.</div> 
+}
+else if (ViewBag.Average == "-1")
+{
+    //TODO: error message in red.
+    <div>Please select a valid Dealer Id.</div>
+}
